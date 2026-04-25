@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STARZ-OS v3</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+body { background:#0a0a1a; color:white; font-family:sans-serif; }
+
+/* Glass */
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* 3D Icons */
+.icon-3d {
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+  transition: all 0.3s ease;
+}
+.icon-3d:hover {
+  transform: scale(1.2);
+}
+
+/* Windows */
+.window {
+  position:absolute;
+  background:#12122a;
+  border:1px solid #8b5cf6;
+  padding:15px;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="p-6 flex justify-between glass">
+  <div class="flex gap-2 items-center">
+    <i data-lucide="orbit" class="icon-3d"></i>
+    <b>STARZ-OS</b>
+  </div>
+  <button onclick="toggleTheme()">Toggle</button>
+</div>
+
+<div id="windows" class="h-screen relative"></div>
+
+<div class="fixed bottom-5 left-1/2 -translate-x-1/2 flex gap-4 glass p-3 rounded-xl">
+  <button onclick="openApp('Dashboard')">
+    <i data-lucide="layout-dashboard" class="icon-3d"></i>
+  </button>
+  <button onclick="openApp('CRM')">
+    <i data-lucide="users" class="icon-3d"></i>
+  </button>
+  <button onclick="openApp('AI')">
+    <i data-lucide="bot" class="icon-3d"></i>
+  </button>
+</div>
+
+<script>
+lucide.createIcons();
+
+function toggleTheme(){
+  document.body.classList.toggle('bg-white');
+}
+
+let z = 1;
+
+function openApp(name){
+  const el = document.createElement('div');
+  el.className='window';
+  el.style.width='300px';
+  el.style.height='200px';
+  el.style.left='100px';
+  el.style.top='100px';
+  el.style.zIndex=++z;
+
+  el.innerHTML = "<b>"+name+"</b><br>Loaded.";
+
+  document.getElementById('windows').appendChild(el);
+}
+</script>
+
+</body>
+</html>
